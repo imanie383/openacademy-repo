@@ -1,4 +1,6 @@
 <odoo>
+	<!-- Views -->
+	<!-- Form Course -->
 	<record model="ir.ui.view" id="course_form_view">
 		<field name="name">course.form</field>
 		<field name="model">openacademy.course</field>
@@ -9,27 +11,28 @@
 						<field name="name"/>
 						<field name="responsible_id"></field>
 					</group>
+					<notebook> 
+						<page string="Description">
+							<field name="description"/>
+						</page>
+						<page string="About">
+							This is an example
+						</page>
+						<page string="Courses">
+							<field name="session_ids" nolabel="1">
+								<tree string="registred sessions">
+									<field name="name"/>
+									<field name="instructor_id"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
 				</sheet>
-				<notebook> 
-					<page string="Description">
-						<field name="description"/>
-					</page>
-					<page string="About">
-						This is an example
-					</page>
-					<page string="Courses">
-						<field name="session_ids" nolabel="1">
-							<tree string="registred sessions">
-								<field name="name"/>
-								<field name="instructor_id"/>
-							</tree>
-						</field>
-					</page>
-				</notebook>
 			</form>
 		</field>
 	</record>
 	
+	<!-- List Course -->
 	<record model="ir.ui.view" id="course_list_view">
 		<field name="name">course.list</field>
 		<field name="model">openacademy.course</field>
@@ -42,6 +45,7 @@
 		</field>
 	</record>
 	
+	<!-- Course Search -->
 	<record model="ir.ui.view" id="course_search_view">
 		<field name="name">course.search</field>
 		<field name="model">openacademy.course</field>
@@ -53,23 +57,8 @@
 		</field>
 	</record>
 	
-	<record model="ir.ui.view" id="session_form_view">
-		<field name="name">session.form</field>
-		<field name="model">openacademy.session</field>
-		<field name="arch" type="xml">
-			<form string="Session Form">
-				<sheet>
-					<group>
-						<field name="name"/>
-						<field name="start_date"/>
-						<field name="duration"/>
-						<field name="seats"/>
-					</group>
-				</sheet>
-			</form>
-		</field>
-	</record>
-	
+
+	<!-- Form Session -->
 	<record model="ir.ui.view" id="session_form_view">
 		<field name="name">session.form</field>
 		<field name="model">openacademy.session</field>
@@ -91,22 +80,21 @@
 		</field>
 	</record>
 	
+	<!-- Session tree -->
 	<record model="ir.ui.view" id="session_tree_view">
 		<field name="name">session.tree</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
 			<tree string="Session tree">
 				<field name="name"/>
-				<field name="start_date"/>
-				<field name="duration"/>
-				<field name="seats"/>
 				<field name="instructor_id"/>
 				<field name="course_id"/>
 			</tree>
 		</field>
 	</record>
 	
-
+	<!-- actions -->
+	<!-- Courses action -->
 	<record model="ir.actions.act_window" id="course_list_action">
 		<field name="name">Courses</field>
 		<field name="res_model">openacademy.course</field>
@@ -116,21 +104,32 @@
 		</field>
 	</record>
 	
-	
+	<!-- Sessions action -->
 	<record model="ir.actions.act_window" id="session_list_action">
 		<field name="name">Sessions</field>
 		<field name="res_model">openacademy.session</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form</field>
 	</record>
-	
 
-	<!-- Top menu item -->
+	<!-- Menus -->
+	<!-- Open Academy -->
 	<menuitem name="Open Academy" id="main_openacademy_menu"/>
-	<!-- menu categories -->
+	
+	<!-- Open Academy > Open Academy -->
 	<menuitem name="Open Academy" id="openacademy_menu" parent="main_openacademy_menu"/>
+	
+	<!-- Open Academy > Open Academy > Courses-->
 	<menuitem name="Courses" id="courses_menu" parent="openacademy_menu" action="course_list_action"/>
 	
-	<!-- actions -->
+	<!-- Open Academy > Open Academy > Sessions-->
 	<menuitem id="session_menu" name="Sessions" parent="openacademy_menu" action="session_list_action"/>
+
+	<!-- Menus -->
+	<!-- Config -->
+	<menuitem id="configuration_menu" name="Configuration" 
+		parent="main_openacademy_menu"/>
+	<!-- Config > Contact -->
+	<menuitem id="contact_menu" name="Contacts" 
+		parent="configuration_menu"/>
 </odoo>
