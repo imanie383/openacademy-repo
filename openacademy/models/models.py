@@ -14,14 +14,19 @@ class Course(models.Model):
     session_ids = fields.One2many('openacademy.session','course_id')
 
     _sql_constraints = [
-    	('name_description_check', 'CHECK(name != description)', "The title of the course shouldn't be the description" ), 
+    	('name_description_check', 'CHECK(name != description)', 
+    		"The title of the course shouldn't be the description" ), 
     	('name_unique', 'UNIQUE(name)', "The course title must be unique" )
     ]
 
     def copy(self, default=None):
     	 if default is None:
     	 	default = {}
-    	 copied_count = self.search_count([('name','ilike','Copy of %s%%' % (self.name))])
+    	 copied_count = self.search_count(
+	    	 	[
+	    	 		('name','ilike','Copy of %s%%' % (self.name))
+	    	 	]
+	    	 )
 
     	 if not copied_count:
     	 	new_name = "Copy of %s" % (self.name)
@@ -29,7 +34,9 @@ class Course(models.Model):
     	 	new_name = "Copy of %s (%s)" % (self.name, copied_count)
 
     	 default['name'] = new_name
+    	 # try:
     	 return super(Course, self).copy(default)
+    	 # except exception
 
 class Session(models.Model):
 	_name = 'openacademy.session'
@@ -39,7 +46,8 @@ class Session(models.Model):
 	datetime_test = fields.Datetime(default=fields.Datetime.now)
 	duration = fields.Float(digits=(6, 2), help="Duration in days")
 	seats = fields.Integer(string="Number of seats")
-	instructor_id = fields.Many2one('res.partner',string='Instructor', domain=[('instructor','=',True)])
+	instructor_id = fields.Many2one('res.partner',string='Instructor', 
+		domain=[('instructor','=',True)])
 	course_id = fields.Many2one('openacademy.course', ondelete='cascade',
 	 string="Course", required=True)
 	attendee_ids = fields.Many2many('res.partner',string="attendees")

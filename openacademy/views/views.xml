@@ -88,7 +88,7 @@
 		<field name="name">session.tree</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
-			<tree string="Session tree">
+			<tree string="Session tree" colors="blue:duration &lt; 5">
 				<field name="name"/>
 				<field name="instructor_id"/>
 				<field name="course_id"/>
@@ -121,15 +121,17 @@
 	<menuitem name="Open Academy" id="main_openacademy_menu"/>
 	
 	<!-- Open Academy > Open Academy -->
-	<menuitem name="Open Academy" id="openacademy_menu" parent="main_openacademy_menu"/>
+	<menuitem name="Open Academy" id="openacademy_menu" 
+		parent="main_openacademy_menu"/>
 	
 	<!-- Open Academy > Open Academy > Courses-->
-	<menuitem name="Courses" id="courses_menu" parent="openacademy_menu" action="course_list_action"/>
+	<menuitem name="Courses" id="courses_menu" parent="openacademy_menu" 
+		action="course_list_action"/>
 	
 	<!-- Open Academy > Open Academy > Sessions-->
-	<menuitem id="session_menu" name="Sessions" parent="openacademy_menu" action="session_list_action"/>
+	<menuitem id="session_menu" name="Sessions" parent="openacademy_menu" 
+		action="session_list_action"/>
 
-	<!-- Menus -->
 	<!-- Config -->
 	<menuitem id="configuration_menu" name="Configuration" 
 		parent="main_openacademy_menu"/>
