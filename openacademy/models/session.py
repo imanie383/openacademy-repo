@@ -22,6 +22,7 @@ class Session(models.Model):
 	end_date = fields.Date(store=True, compute='_get_end_date',
 		inverse='_set_end_date')
 	attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
+	color = fields.Float()
 
 	@api.depends('attendee_ids')
 	def _get_attendees_count(self):
