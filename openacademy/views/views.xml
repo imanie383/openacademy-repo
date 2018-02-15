@@ -68,7 +68,7 @@
 					<group>
 						<field name="name"/>
 						<field name="start_date"/>
-						<field name="datetime_test"/>
+						<field name="end_date"/>
 						<field name="duration"/>
 						<field name="seats"/>
 						<field name="taken_seats" widget="progressbar"/>
@@ -77,6 +77,7 @@
 						<label for="attendee_ids"/>
 						<field name="attendee_ids" nolabel="1"/>
 						<field name="active"/>
+						<field name="datetime_test"/>
 					</group>
 				</sheet>
 			</form>
@@ -88,8 +89,11 @@
 		<field name="name">session.tree</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
-			<tree string="Session tree" colors="blue:duration &lt; 5">
+			<tree string="Session tree" decoration-info="duration &lt; 5" decoration-danger="duration &gt; 14">
 				<field name="name"/>
+				<field name="start_date"/>
+				<field name="end_date"/>
+				<field name="duration"/>
 				<field name="instructor_id"/>
 				<field name="course_id"/>
 				<field name="taken_seats" widget="progressbar"/>
