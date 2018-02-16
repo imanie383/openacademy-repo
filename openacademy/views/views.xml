@@ -95,13 +95,13 @@
 		<field name="name ">session.tree</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
-			<tree string="Session tree" decoration-info="duration &lt; 5" decoration-danger="duration &gt; 14">
+			<tree string="Session tree" decoration-info="duration &lt; 5" decoration-danger="duration &gt; 14" editable="bottom">
 				<field name="name"/>
 				<field name="start_date"/>
 				<field name="end_date"/>
-				<field name="duration"/>
-				<field name="instructor_id"/>
-				<field name="course_id"/>
+				<field name="duration" invisible="1"/>
+				<field name="instructor_id" widget="selection"/>
+				<field name="course_id" options="{ 'no_create' : True }"/>
 				<field name="taken_seats" widget="progressbar"/>
 			</tree>
 		</field>
@@ -177,6 +177,14 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="session_gantt_view">
+        <field name="name">session.gantt</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <gantt string="Session Gantt" date_start="start_date" default_group_by='instructor_id' date_stop="end_date">
+            </gantt>
+        </field>
+    </record>
 
 	<!-- actions -->
 	<!-- Courses action -->
@@ -195,7 +203,7 @@
 		<field name="name">Sessions</field>
 		<field name="res_model">openacademy.session</field>
 		<field name="view_type">form</field>
-		<field name="view_mode">tree,form,calendar,graph,kanban</field>
+		<field name="view_mode">tree,form,calendar,graph,kanban,gantt</field>
 	</record>
 
 	<!-- Menus -->

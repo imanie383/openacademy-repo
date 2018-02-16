@@ -23,6 +23,7 @@ class Session(models.Model):
 		inverse='_set_end_date')
 	attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
 	color = fields.Float()
+	hours = fields.Float(string="Duration in hours", compute='_get_hours', inverse='_set_hours')
 
 	@api.depends('attendee_ids')
 	def _get_attendees_count(self):
@@ -67,6 +68,15 @@ class Session(models.Model):
 					'message' : "Increase seats or remove excess attendees"
 				}
 			}
+
+	@api.depends('duration')
+	def _get_hours(self):
+		for r in self:
+			r.hours = r.duration * 24
+
+	def _set_hours(self):
+		for r in self:
+			r.duration = r.hours / 24
 
 	@api.constrains('instructor_id','attendee_ids')
 	def _check_instructor_not_in_attendees(self):
