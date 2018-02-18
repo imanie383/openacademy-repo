@@ -99,6 +99,7 @@
 				<field name="name"/>
 				<field name="start_date"/>
 				<field name="end_date"/>
+				<field name="seats" string="Number of seats"/>
 				<field name="duration" invisible="1"/>
 				<field name="instructor_id" widget="selection"/>
 				<field name="course_id" options="{ 'no_create' : True }"/>
@@ -206,6 +207,7 @@
 		<field name="view_mode">tree,form,calendar,graph,kanban,gantt</field>
 	</record>
 
+
 	<!-- Menus -->
 	<!-- Open Academy -->
 	<menuitem name="Open Academy" id="main_openacademy_menu"/>
@@ -228,4 +230,28 @@
 	<!-- Config > Contact -->
 	<menuitem id="contact_menu" name="Contacts" 
 		parent="configuration_menu"/>
+
+    <record model="ir.ui.view" id="wizard_form_view">
+        <field name="name">wizard.form</field>
+        <field name="model">openacademy.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Attendees">
+                <group>
+                    <field name="session_ids"/>
+                    <field name="attendee_ids"/>
+                </group>
+                <footer>
+                    <button name="subscribe" type="object"
+                            string="Subscribe" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="launch_session_wizard" name="Add Attendees"
+                src_model="openacademy.session"
+                res_model="openacademy.wizard"
+                view_mode="form" target="new" key2="client_action_multi"/>
 </odoo>
