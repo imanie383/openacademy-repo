@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-import time
+from odoo import models, fields, api, exceptions
 from datetime import timedelta
 
 class Session(models.Model):
@@ -12,7 +11,7 @@ class Session(models.Model):
 	datetime_test = fields.Datetime(default=fields.Datetime.now)
 	duration = fields.Float(digits=(6, 2), help="Duration in days")
 	seats = fields.Integer(string="Number of seats")
-	instructor_id = fields.Many2one('res.partner',string='Instructor', 
+	instructor_id = fields.Many2one('res.partner',string='Instructor',
 		domain=[('instructor','=',True)])
 	course_id = fields.Many2one('openacademy.course', ondelete='cascade',
 	 string="Course", required=True)
@@ -34,7 +33,7 @@ class Session(models.Model):
 	def _get_end_date(self):
 		for record in self.filtered('start_date'):
 			start_date = fields.Datetime.from_string(record.start_date)
-			record.end_date = start_date + timedelta(days=record.duration, 
+			record.end_date = start_date + timedelta(days=record.duration,
 				seconds=-1)
 
 	def _set_end_date(self):
@@ -49,7 +48,7 @@ class Session(models.Model):
 		for record in self.filtered(lambda r: r.seats != 0 ):
 			record.taken_seats = 100.0 * len(record.attendee_ids) / record.seats
 
-	@api.onchange('seats','attendees')
+	@api.onchange('seats','attendee_ids')
 	def _veryfy_valid_seats(self):
 		if self.seats < 0:
 			self.active = False
