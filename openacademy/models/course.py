@@ -24,14 +24,16 @@ class Course(models.Model):
             "The course title must be unique" )
     ]
 
+    @api.multi
     def copy(self, default=None):
-        if default is None:
-            default = {}
-        copied_count = self.search_count([
-            ('name', 'ilike', _('Copy of %s%%') % (self.name))])
+        default = dict(default or {})
+        print("Im passing through the copy inherited function of courses")
+        copied_count = self.search_count(
+            [('name', '=like', u"Copy of {}%".format(self.name))])
         if not copied_count:
-            new_name = _("Copy of %s") % (self.name)
+            new_name = u"Copy of {}".format(self.name)
         else:
-            new_name = _("Copy of %s (%s)")%(self.name, copied_count)
+            new_name = u"Copy of {} ({})".format(self.name, copied_count)
+
         default['name'] = new_name
         return super(Course, self).copy(default)
