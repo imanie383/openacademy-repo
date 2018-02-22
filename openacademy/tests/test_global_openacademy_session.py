@@ -31,7 +31,6 @@ class GlobalTestOpenAcademySession(TransactionCase):
 
 	def test_20_wkf_done(self):
 		#Check that the workflow work fine!
-
 		session_test = self.session.create({
 				'name' : 'Session test 1',
 				'seats' : 1,
@@ -39,3 +38,5 @@ class GlobalTestOpenAcademySession(TransactionCase):
 				'attendee_ids' : [(6,0,[self.partner_attendee.id])],
 				'course_id' : self.course.id
 				})
+
+		self.assertEqual(session_test.state, 'draft','Initial state should be in "draft"')
