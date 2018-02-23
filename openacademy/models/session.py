@@ -79,12 +79,12 @@ class Session(models.Model):
 
     @api.depends('duration')
     def _get_hours(self):
-        for r in self:
-            r.hours = r.duration * 24
+        for temp in self:
+            temp.hours = temp.duration * 24
 
     def _set_hours(self):
-        for r in self:
-            r.duration = r.hours / 24
+        for temp in self:
+            temp.duration = temp.hours / 24
 
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
