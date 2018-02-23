@@ -38,5 +38,3 @@ class GlobalTestOpenAcademySession(TransactionCase):
 				'attendee_ids' : [(6,0,[self.partner_attendee.id])],
 				'course_id' : self.course.id
 				})
-
-		self.assertEqual(session_test.state, 'draft','Initial state should be in "draft"')

@@ -2,7 +2,7 @@
 	<!-- Views -->
 	<!-- Form Course -->
 	<record model="ir.ui.view" id="course_form_view">
-		<!-- <field name="name">course.form</field> -->
+		<field name="name">course.form</field>
 		<field name="model">openacademy.course</field>
 		<field name="arch" type="xml">
 			<form string="Course Form">
@@ -34,7 +34,7 @@
 
 	<!-- List Course -->
 	<record model="ir.ui.view" id="course_list_view">
-		<!-- <field name="name">course.list</field> -->
+		<field name="name">course.list</field>
 		<field name="model">openacademy.course</field>
 		<field name="arch" type="xml">
 			<tree string="Course tree">
@@ -47,7 +47,7 @@
 
 	<!-- Course Search -->
 	<record model="ir.ui.view" id="course_search_view">
-		<!-- <field name="name">course.search</field> -->
+		<field name="name">course.search</field>
 		<field name="model">openacademy.course</field>
 		<field name="arch" type="xml">
 			<search string="Course search">
@@ -66,7 +66,7 @@
 
 	<!-- Form Session -->
 	<record model="ir.ui.view" id="session_form_view">
-		<!-- <field name="name">session.form</field> -->
+		<field name="name">session.form</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
 			<form string="Session Form">
@@ -92,7 +92,7 @@
 
 	<!-- Session tree -->
 	<record model="ir.ui.view" id="session_tree_view">
-		<!-- <field name="name ">session.tree</field> -->
+		<field name="name ">session.tree</field>
 		<field name="model">openacademy.session</field>
 		<field name="arch" type="xml">
 			<tree string="Session tree" decoration-info="duration &lt; 5" decoration-danger="duration &gt; 14">
@@ -110,7 +110,7 @@
 
 	<!-- calendar view -->
     <record model="ir.ui.view" id="session_calendar_view">
-        <!-- <field name="name">session.calendar</field> -->
+        <field name="name">session.calendar</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <calendar string="Session Calendar" date_start="start_date" date_stop="end_date" color="instructor_id">
@@ -120,7 +120,7 @@
     </record>
 
     <record model="ir.ui.view" id="session_graph_view">
-        <!-- <field name="name">session.graph</field> -->
+        <field name="name">session.graph</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <graph string="Participations by Courses">
@@ -131,7 +131,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_openacad_session_kanban">
-        <!-- <field name="name">openacad.session.kanban</field> -->
+        <field name="name">openacad.session.kanban</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <kanban default_group_by="course_id">
@@ -179,7 +179,7 @@
     </record>
 
     <record model="ir.ui.view" id="session_gantt_view">
-        <!-- <field name="name">session.gantt</field> -->
+        <field name="name">session.gantt</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <gantt string="Session Gantt" date_start="start_date" default_group_by='instructor_id' date_stop="end_date">
@@ -190,7 +190,7 @@
 	<!-- actions -->
 	<!-- Courses action -->
 	<record model="ir.actions.act_window" id="course_list_action">
-		<!-- <field name="name">Courses</field> -->
+		<field name="name">Courses</field>
 		<field name="res_model">openacademy.course</field>
 		<field name="view_mode">tree,form</field>
 		<field name="context" eval="{'search_default_my_courses' : 1}"/>
@@ -201,7 +201,7 @@
 
 	<!-- Sessions action -->
 	<record model="ir.actions.act_window" id="session_list_action">
-		<!-- <field name="name">Sessions</field> -->
+		<field name="name">Sessions</field>
 		<field name="res_model">openacademy.session</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form,calendar,graph,kanban,gantt</field>
@@ -232,7 +232,7 @@
 		parent="configuration_menu"/>
 
     <record model="ir.ui.view" id="wizard_form_view">
-        <!-- <field name="name">wizard.form</field> -->
+        <field name="name">wizard.form</field>
         <field name="model">openacademy.wizard</field>
         <field name="arch" type="xml">
             <form string="Add Attendees">
