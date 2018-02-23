@@ -13,8 +13,7 @@ class Session(models.Model):
     duration = fields.Float(digits=(6, 2), help="Duration in days")
     seats = fields.Integer(string="Number of seats")
     instructor_id = fields.Many2one(
-        'res.partner',
-        string='Instructor',
+        'res.partner', string='Instructor',
         domain=[('instructor', '=', True)])
     course_id = fields.Many2one(
         'openacademy.course', ondelete='cascade',
@@ -42,8 +41,7 @@ class Session(models.Model):
         for record in self.filtered('start_date'):
             start_date = fields.Datetime.from_string(record.start_date)
             record.end_date = start_date + timedelta(
-                days=record.duration,
-                seconds=-1)
+                days=record.duration, seconds=-1)
 
     def _set_end_date(self):
         for record in self.filtered('start_date'):
@@ -53,8 +51,8 @@ class Session(models.Model):
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
-        for record in self.filtered(
-                lambda r: r.seats != 0):
+        # import pdb; pdb.set_trace()
+        for record in self.filtered(lambda r: r.seats != 0):
             percent = len(record.attendee_ids) / record.seats
             record.taken_seats = 100.0 * percent
 
@@ -65,8 +63,8 @@ class Session(models.Model):
             return {
                 'warning': {
                     'title': "Incorrect seats value",
-                    'message': "The number of available \
-                        seats may not be negative"
+                    'message': "The number of \
+                    available seats may not be negative"
                 }
             }
 
@@ -75,23 +73,22 @@ class Session(models.Model):
             return {
                 'warning': {
                     'title': "Too many attendees",
-                    'message': "Increase seats or \
-                        remove excess attendees"
+                    'message': "Increase seats or remove excess attendees"
                 }
             }
 
-        @api.depends('duration')
-        def _get_hours(self):
-            for r in self:
-                r.hours = r.duration * 24
+    @api.depends('duration')
+    def _get_hours(self):
+        for r in self:
+            r.hours = r.duration * 24
 
-        def _set_hours(self):
-            for r in self:
-                r.duration = r.hours / 24
+    def _set_hours(self):
+        for r in self:
+            r.duration = r.hours / 24
 
-        @api.constrains('instructor_id', 'attendee_ids')
-        def _check_instructor_not_in_attendees(self):
-            for record in self.filtered('instructor_id'):
-                if record.instructor_id in record.attendee_ids:
-                    raise exceptions.ValidationError(
-                        "A session's instructor can't be an attendee")
+    @api.constrains('instructor_id', 'attendee_ids')
+    def _check_instructor_not_in_attendees(self):
+        for record in self.filtered('instructor_id'):
+            if record.instructor_id in record.attendee_ids:
+                raise exceptions.ValidationError(
+                    "A session's instructor can't be an attendee")

@@ -46,10 +46,10 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         '''
         new_id = self.create_course('test_name1', 'test_description1', None)
         print("new_id ", new_id)
+        errorStr = 'duplicate key value violates unique constraint "openacademy_course_name_unique"'
         with self.assertRaisesRegexp(
             IntegrityError,
-            'duplicate key value violates unique \
-            constraint "openacademy_course_name_unique"'
+            errorStr
         ):
             new_id2 = self.create_course(
                 'test_name1', 'test_description1', None)

@@ -21,7 +21,6 @@ class Course(models.Model):
     _sql_constraints = [
         ('name_description_check', 'CHECK(name != description)',
          "The title of the course shouldn't be the description"),
-
         ('name_unique', 'UNIQUE(name)',
             "The course title must be unique")
     ]
@@ -29,7 +28,6 @@ class Course(models.Model):
     @api.multi
     def copy(self, default=None):
         default = dict(default or {})
-        print("Im passing through the copy inherited function of courses")
         copied_count = self.search_count(
             [('name', '=like', u"Copy of {}%".format(self.name))])
         if not copied_count:
